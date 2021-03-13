@@ -1,3 +1,8 @@
+/*
+ 学習のためポートスキャン作成
+入力判定やコマンドライン引数処理はまだまだ...
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
