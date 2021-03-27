@@ -15,11 +15,13 @@
 
 #include <stdbool.h>
 
+#define VERSION "1.0.0.1"
 
 #define PORTSTART 1
 #define PORTEND 65535
 
 
+void version();
 void usage();
 int connect_soket();
 bool portscan(char *host, int port);
@@ -35,17 +37,14 @@ int main(int argc, char *argv[])
     bool f_port = false;
 
     /* get commandline */
-    if (argc < 2)
-    {
-        usage();
-    } 
-
-    host = strdup(argv[1]);
-
-    while((opt = getopt(argc, argv, "h:p:")) != -1)
+    while((opt = getopt(argc, argv, "vh:p:")) != -1)
     {
         switch(opt)
         {
+            case 'v':
+                version();
+                exit(EXIT_SUCCESS);
+                break;
             case 'h':
                 host = strdup(optarg);
                 break;
@@ -58,6 +57,10 @@ int main(int argc, char *argv[])
                 usage();
                 break;
         }
+    }
+
+    if (optind < argc) {
+        host = strdup(argv[optind]);
     }
 
     printf("Starting port scan...\n\n");
@@ -82,6 +85,13 @@ int main(int argc, char *argv[])
 
     return 0;
 }
+
+
+void version()
+{
+    fprintf(stdout, "version %s\n", VERSION);
+}
+
 
 void usage()
 {
